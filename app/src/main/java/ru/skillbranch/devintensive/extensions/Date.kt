@@ -77,11 +77,11 @@ fun Date.humanizeDiff(date:Date = Date()) : String {
         in 0..1 * SECOND -> if (differenceTime >= 0) "через мгновение" else "только что"
         in 1 * SECOND..45 * SECOND -> if (differenceTime > 0) "через несколько секунд" else "несколько секунд назад"
         in 45 * SECOND..47 * SECOND -> if (differenceTime > 0) "через минуту" else "минуту назад"
-        in 75 * SECOND..45 * MINUTE -> "${if (differenceTime > 0) "через " else ""}${TimeUnits.MINUTE.plural((absDiffTime/ MINUTE).toInt())} ${if (differenceTime < 0) "назад" else ""}"
+        in 75 * SECOND..45 * MINUTE -> "${if (differenceTime > 0) "через " else ""}${TimeUnits.MINUTE.plural((absDiffTime/ MINUTE).toInt())}${if (differenceTime < 0) " назад" else ""}"
         in 45 * MINUTE..75 * MINUTE -> if (differenceTime > 0) "через час" else "час назад"
-        in 75 * MINUTE..22 * HOUR -> "${if (differenceTime > 0) "через " else ""}${TimeUnits.HOUR.plural((absDiffTime/ HOUR).toInt())} ${if (differenceTime < 0) "назад" else ""}"
+        in 75 * MINUTE..22 * HOUR -> "${if (differenceTime > 0) "через " else ""}${TimeUnits.HOUR.plural((absDiffTime/ HOUR).toInt())}${if (differenceTime < 0) " назад" else ""}"
         in 22 * HOUR..26 * HOUR -> if (differenceTime > 0) "через день" else "день назад"
-        in 26 * HOUR..360 * DAY -> "${if (differenceTime > 0) "через " else ""}${TimeUnits.DAY.plural((absDiffTime/ DAY).toInt())} ${if (differenceTime < 0) "назад" else ""}"
+        in 26 * HOUR..360 * DAY -> "${if (differenceTime > 0) "через " else ""}${TimeUnits.DAY.plural((absDiffTime/ DAY).toInt())}${if (differenceTime < 0) " назад" else ""}"
         else -> if (differenceTime > 0) "более чем через год" else "более года назад"
     }
 }

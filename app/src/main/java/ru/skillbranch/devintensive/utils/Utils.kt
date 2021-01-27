@@ -30,13 +30,17 @@ object Utils {
         val newFirstName = firstName?.replaceAll(transliteration)
         val newLastName = lastName?.replaceAll(transliteration)
 
-        return "${newFirstName?.take(1)?.toUpperCase(Locale.ROOT)}${newFirstName?.drop(1)}$divider" +
-                "${newLastName?.take(1)?.toUpperCase(Locale.ROOT)}${newLastName?.drop(1)}"
+        val firstNameTitle = if (firstName != null && firstName.isTitleCase()) "${newFirstName?.take(1)?.toUpperCase(Locale.ROOT)}${newFirstName?.drop(1)}" else "$newFirstName"
+        val lastNameTitle = if (lastName != null && lastName.isTitleCase()) "${newLastName?.take(1)?.toUpperCase(Locale.ROOT)}${newLastName?.drop(1)}" else "$newLastName"
+
+        return "$firstNameTitle$divider$lastNameTitle"
     }
 
-    private fun String.replaceAll(keys: Map<String, String>) : String =
+    private fun String.replaceAll(keys: Map<String, String>)  =
         keys.entries.fold(this) { acc, (key, value) -> acc.replace(key, value, ignoreCase = true)}
 
+    private fun String.isTitleCase()
+            = isNotEmpty() && this[0].isUpperCase()
 
     private val transliteration = mapOf(
         "а" to "a",
@@ -77,7 +81,7 @@ object Utils {
     fun toInitials(firstName: String?, lastName: String?): String? {
 
         val firstSymbol = firstName?.getOrNull(0)
-        val secondSymbol = lastName?.getOrNull(1)
+        val secondSymbol = lastName?.getOrNull(0)
 
         if (firstName == null && lastName == null)
             return null
